@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "486499874096",
+    "firebase_url": "https://mango-46f64.firebaseio.com",
+    "project_id": "mango-46f64",
+    "storage_bucket": "mango-46f64.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:486499874096:android:22eca55c9ba1cad2f184f5",
+        "android_client_info": {
+          "package_name": "com.dmon.mango"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "486499874096-d4drhj3mqktvq1nnpbcpc8lnai4dq4g1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCL10gVoVWPg_WyHL7_2ZfRfSQayqHidq8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "486499874096-d4drhj3mqktvq1nnpbcpc8lnai4dq4g1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
