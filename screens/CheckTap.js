@@ -5,7 +5,7 @@ import { Image, Platform, Dimensions,StyleSheet, Text,Picker, TouchableOpacity,V
 import { ScrollView } from 'react-native-gesture-handler';
 import { connect,useDispatch, useSelector } from 'react-redux';
 import Axios from "axios";
-import {url,useObj,sOrder,qList,sOrder_name,q36arr,q22arr,q18arr} from '../common.js';
+import {url,useObj,sOrder,qList,sOrder_name,q36arr,q22arr,q18arr,alerts} from '../common.js';
 import SliderInput from '../components/SliderInput';
 import MRadioInput from '../components/MRadioInput';
 import { TabView, SceneMap,TabBar } from 'react-native-tab-view';
@@ -92,7 +92,7 @@ function CheckTap(props){
         const urls = url+"mem_check/add/"+props.mem_userid;
         const form = uesData.noGet();
         Axios.post(urls,form).then(res=>{
-            alert("증상체크가 완료되었습니다");
+            alerts("증상체크가 완료되었습니다");
             props.navigation.replace("Main");
         });
     }

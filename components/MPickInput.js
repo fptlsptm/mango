@@ -1,6 +1,7 @@
 
 import * as React from 'react';
 import { Image, Platform, StyleSheet, Text,Picker, TouchableOpacity,View,TextInput,Modal,ScrollView} from 'react-native';
+import {url,alerts} from '../common.js';
 function MPickInput(props){
     const [act ,setAct] = React.useState(props.act);
     const [iosText ,setIosText] = React.useState(props.act);
@@ -32,7 +33,7 @@ function MPickInput(props){
     }
     const nextEvent = (e) =>{
         if(e == undefined || e == "선택해 주세요"){
-            alert("항목을 선택해주세요");
+            alerts("항목을 선택해주세요");
         }else{
             let idx = iconArr.indexOf("기타(기입)");
             if (idx !== -1) {
@@ -113,9 +114,9 @@ function MPickInput(props){
                     <Text style={styles.sub_text}>
                        해당하는 항목을 선택해주세요
                     </Text>
-                    <ScrollView style={styles.pickList}>
-                        {pickList} 
-                    </ScrollView> 
+                    <ScrollView style={styles.pickList} contentContainerStyle={styles.contentPickList}>
+                        {pickList}
+                    </ScrollView>
 
                     <ScrollView style={styles.iconBox}>
                         {ckt == true &&
@@ -147,7 +148,9 @@ if (Platform.OS === 'ios'){
 }
 export default MPickInput;
 const styles = StyleSheet.create({
-    blockBox:{flexDirection: 'row-reverse',flexWrap:"wrap", justifyContent: 'flex-end'},
+
+    modalIos:{flex:1},
+    blockBox:{flexDirection: 'row-reverse',flexWrap:"wrap", justifyContent: 'flex-end',flex:1},
     sub_text:{
         marginTop:15,
         marginBottom:10,
@@ -157,13 +160,17 @@ const styles = StyleSheet.create({
         textAlign:"center",
         width:300,
     },
+    contentPickList:{
+        justifyContent: 'flex-end', flexDirection: 'column',flexGrow:1
+    },
     pickList:{
+        position:"relative",
         borderTopColor:"#eee",
         borderTopWidth:1,
         borderBottomColor:"#eee",
         borderBottomWidth:1,
         width:"100%",
-        flex:1,
+        height:200,
         paddingLeft:25,
     },  
     pickItem:{
@@ -180,7 +187,6 @@ const styles = StyleSheet.create({
         color:"#000",
     },
     cencels:{
-        
         marginLeft:40,
     },  
     nextEvent:{
@@ -193,9 +199,9 @@ const styles = StyleSheet.create({
         width:"100%",
         marginBottom:10,
         marginTop:10,
-        paddingLeft:25,
+        paddingLeft:2,
         flex:1,
-        
+        paddingLeft:23,
     },
     
     iconLabel:{
@@ -263,6 +269,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         marginBottom:10,
         alignItems:"center",
+        flex:1,
     },
     containerModal: {
         flex:1,

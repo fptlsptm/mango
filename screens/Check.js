@@ -5,7 +5,7 @@ import { Image, Platform, StyleSheet, Text,Picker, TouchableOpacity,View,Linking
 import { ScrollView } from 'react-native-gesture-handler';
 import { connect,useDispatch, useSelector } from 'react-redux';
 import Axios from "axios";
-import {url,useObj,qOrder} from '../common.js';
+import {url,useObj,qOrder,alerts} from '../common.js';
 import { HeaderTitle } from '@react-navigation/stack';
 import InputCal from '../components/InputCal';
 import CheckInfo from '../components/CheckInfo';
@@ -33,7 +33,7 @@ function Check(props){
                 props.navigation.replace("Complete");
             }
         }else{
-            alert(form[0]+"번째 항목에 답변 후 다음을 눌러주세요");
+            alerts(form[0]+"번째 항목에 답변 후 다음을 눌러주세요");
         }
         //props.navigation.navigate("Ckeck"+(idx+1),{idx:(idx+1)});
     }

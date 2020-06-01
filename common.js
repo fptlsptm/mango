@@ -1,5 +1,10 @@
 import { ceil } from "react-native-reanimated";
+import {Alert} from 'react-native';
 import * as React from 'react';
+
+export function alerts(msg){
+    Alert.alert("생망고",msg); 
+}
 
 export const useObj = (o) =>{
     const [obj, setObj] = React.useState(o);
@@ -76,19 +81,27 @@ export function NowDate(){
 }
 
 export function lastMonth(){
-    var settingDate = new Date();
-    settingDate.setMonth(settingDate.getMonth()-1);
-    let year = settingDate.getFullYear(); // 년도
-    let month = settingDate.getMonth() + 1;  // 월
-    const rs = year+"@"+month;
+    var settingDate1 = new Date();
+    settingDate1.setMonth(settingDate1.getMonth()-1);
+    let year1 = settingDate1.getFullYear(); // 년도
+    let month1 = settingDate1.getMonth() ;  // 월
+    const rs1 = year1+"@"+month1;
 
-    let today = new Date();   
-    let year2 = today.getFullYear(); // 년도
-    let month2 = today.getMonth() + 1;  // 월
 
+    var settingDate2 = new Date();
+    settingDate2.setMonth(settingDate2.getMonth()-1);
+    let year2 = settingDate2.getFullYear(); // 년도
+    let month2 = settingDate2.getMonth() + 1;  // 월
     const rs2 = year2+"@"+month2;
 
-    return [rs,rs2];
+    let today = new Date();   
+    let year3 = today.getFullYear(); // 년도
+    let month3 = today.getMonth() + 1;  // 월
+
+    const rs3 = year3+"@"+month3;
+
+
+    return [rs1,rs2,rs3];
 
 }
 

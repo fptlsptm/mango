@@ -22,6 +22,8 @@ export function CustomDrawerContent(props) {
     </DrawerContentScrollView>
   );
 }
+
+
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
   const [initialNavigationState, setInitialNavigationState] = React.useState();

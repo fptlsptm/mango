@@ -3,7 +3,7 @@ import * as React from 'react';
 import { TextInput,Button,Alert,AsyncStorage,Linking,BackHandler} from 'react-native';
 import { Image, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import {url} from '../common.js';
+import {url,alerts} from '../common.js';
 import {login} from "../actions";
 import Axios from "axios";
 import { Notifications } from 'expo';
@@ -67,9 +67,8 @@ export default function Login(props){
         tForm.append("mem_token",token);  
         tForm.append("mem_platform",Platform.OS);   
         await Axios.post(urls,tForm);
-        props.navigation.replace("Main");
       }else{
-        alert("디바이스가 아닙니다");
+        alerts("디바이스가 아닙니다");
       }
 
     }
@@ -86,9 +85,10 @@ export default function Login(props){
                 AsyncStorage.setItem('mem_id', res.data.item.mem_id);
                 dispatch(login(mem_userid,res.data.item.mem_id));
                 getToken(mem_userid);
+                props.navigation.replace("Main");
                 
             }
-            Alert.alert(res.data.resultItem.msg);
+            alerts(res.data.resultItem.msg);
         });
     }
     

@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Image,Alert, Platform, StyleSheet, Text, TouchableOpacity,ImageBackground,View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { connect,useDispatch, useSelector } from 'react-redux';
-import { NowDate,GetNowDate,GetDays,url,NowYear } from '../common.js';
+import { NowDate,GetNowDate,GetDays,url,NowYear,alerts } from '../common.js';
 
 import { Notifications } from 'expo';
 import * as Permissions from 'expo-permissions';
@@ -17,32 +17,40 @@ export default function Main(props){
   const [ckNav,setCkNav ] = React.useState("Start");
   const [ckNavText,setCkNavText ] = React.useState("설문 참여하기");
   const [dday ,setdday] = React.useState("-DAY");
+  const [title, setTitle] = React.useState("생리 D");
   const [msg ,setMsg] = React.useState("");
+  const [ch_sang ,setCh_sang] = React.useState("N");
   if(!props.mem_id || !props.mem_userid){
     props.navigation.replace("Login");
   }
-
-  
-
-  React.useEffect(()=>{
+  const cal_data = async () =>{
     const urls = url+"check/cal_data/"+props.mem_userid;
     Axios.get(urls).then(res=>{
-
-        if(res.data.ch_com == "Y"){
-          if(res.data.dday == "+0"){
-            setdday("-DAY");
-            setMsg("생리 예정일 입니다");
-          }else{
-            setdday(" "+res.data.dday);
-            setMsg(res.data.msg);
-          }
-
-          setCkNav("CheckTap");
-          setCkNavText("증상 체크하기");
+      if(res.data.ch_sang == "Y"){
+        setTitle("생리중");
+        setdday("");
+        setMsg(res.data.smsg);
+      }else{
+        setTitle("생리 D");
+        if(res.data.dday == "+0"){
+          setdday("-DAY");
+          setMsg("생리 예정일 입니다");
         }else{
-          setMsg("설문조사를 해주세요");
+          setdday(" "+res.data.dday);
+          setMsg(res.data.msg);
         }
+      }
+      if(res.data.ch_com == "Y"){
+        setCkNav("CheckTap");
+        setCkNavText("증상 체크하기");
+      }
+
+      setCh_sang(res.data.ch_sang);
     });
+  }
+
+  React.useEffect(()=>{
+    cal_data();
   },[props.side]);
   const startSang = () => {
     Alert.alert("생리를 시작하셨습니까?", "달력에 표시되는 생리일자가 적용됩니다.", [
@@ -51,27 +59,30 @@ export default function Main(props){
         onPress: () => null,
         style: "cancel"
       },
-      { text: "네", onPress: () => startSangAxois() }
+      { text: "네", onPress: () => sangAxois("Y")}
+    ]);
+    return true;
+  }; 
+  const startEnd = () => {
+    Alert.alert("생리가 끝나셧나요?", "달력에 표시되는 생리일자가 적용됩니다.", [
+      {
+        text: "아니요",
+        onPress: () => null,
+        style: "cancel"
+      },
+      { text: "네", onPress: () => sangAxois("N")}
     ]);
     return true;
   };  
-  const startSangAxois = ()=>{
+  const sangAxois = async (ch_sang) => {
     const urls = url+"check/update_q3/"+props.mem_userid;
     const form = new FormData();
-    if(ckNavText == "설문 참여하기"){
-      alert("설문참여 후 사용해 주세요");
-    }else{
-      form.append("q3",NowDate());
-      Axios.post(urls,form).then(res=>{
-        setdday(" "+res.data.dday);
-        setMsg(res.data.msg);
-      });
-      alert("성공적으로 적용되었습니다.");
-    }
-    
-    
+    //form.append("q3",NowDate());
+    form.append("ch_sang",ch_sang);
+    await Axios.post(urls,form);
+    await cal_data();
+    alerts("성공적으로 적용되었습니다.");
   }
-
   return(
     <View style={styles.container}>
       <ImageBackground source={require('../assets/images/main_back.jpg')} style={styles.image}>
@@ -91,7 +102,7 @@ export default function Main(props){
           <View style={styles.title_box_postion}>
             <Text style={styles.title_text}>{today} {days}</Text>
             <View style={styles.main_box}>  
-              <Text style={styles.main_text}>생리 D{dday}</Text>
+              <Text style={styles.main_text}>{title}{dday}</Text>
               <Text style={styles.main_sub_text}>{msg}</Text>
             </View>
           </View>
@@ -100,10 +111,18 @@ export default function Main(props){
       <View style={styles.iconContain}>
         <View style={styles.bnt_box}>
           <View style={{flexDirection:'row'}} >
-            <Image source={require('../assets/images/medi_on.png')} style={styles.welcomeImage} />
-            <TouchableOpacity style={styles.buttons_box} onPress={()=>startSang()}>
-              <Text style={styles.buttons}>생리시작</Text>
-            </TouchableOpacity>
+            {/* <Image source={require('../assets/images/medi_on.png')} style={styles.welcomeImage} /> */}
+            {ch_sang == "N"
+                ? 
+                  <TouchableOpacity style={styles.buttons_box} onPress={()=>startSang()}>
+                    <Text style={styles.buttons}>생리시작</Text>
+                  </TouchableOpacity>
+                : 
+                  <TouchableOpacity style={styles.buttons_box} onPress={()=>startEnd()}>
+                    <Text style={styles.buttons}>생리종료</Text>
+                  </TouchableOpacity>
+            }
+            
           </View>  
         </View>
         <View style={styles.iconBox}>
@@ -122,9 +141,12 @@ export default function Main(props){
           <TouchableOpacity style={styles.boBnt} onPress={()=>props.navigation.navigate("CalenderScreen")}>
             <Image source={require('../assets/images/cal_on.png')} style={styles.boImage} />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.boBnt2} onPress={()=>props.navigation.navigate("Ckeck4",{idx:4})}>
+          <TouchableOpacity style={styles.boBnt2} onPress={()=>props.navigation.navigate("Ckeck9",{idx:9})}>
             <Image source={require('../assets/images/comu_off.png')} style={styles.boImage2} />
           </TouchableOpacity>
+          {/* <TouchableOpacity style={styles.boBnt2} onPress={()=>props.navigation.navigate("Ckeck5",{idx:5})}>
+            <Image source={require('../assets/images/comu_off.png')} style={styles.boImage2} />
+          </TouchableOpacity> */}
         </View>  
 
       </View>
@@ -144,7 +166,7 @@ const styles = StyleSheet.create({
   bnt_box:{
     width:300,
     position:"absolute",
-    
+    alignItems:"center",
     zIndex:999,
   },
   iconsBox:{
