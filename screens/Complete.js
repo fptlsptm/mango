@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     },
     welcomeImage: {
         width: 140,
-        height: 55,
+        height: 59,
         marginBottom: 30,
     },
 

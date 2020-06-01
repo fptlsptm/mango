@@ -66,7 +66,7 @@ export default function Join(props){
         tForm.append("mem_token",token);  
         tForm.append("mem_platform",Platform.OS);   
         await Axios.post(urls,tForm);
-        props.navigation.replace("Main");
+        props.navigation.replace("Start");
       }else{
         alert("디바이스가 아닙니다");
       }
@@ -79,7 +79,11 @@ export default function Join(props){
                 <TextInput secureTextEntry={true} style={styles.textInputs} {...mem_password} placeholder="비밀번호"/>
                 <TextInput secureTextEntry={true} style={styles.textInputs} {...mem_password_ck} placeholder="비밀번호확인"/>
                 <TextInput  keyboardType="number-pad" style={styles.textInputs} {...mem_birthday} placeholder="생년월일 ex)961216"/>
-                <Text style={styles.info}>*생망고에서 제공하는 서비스의 이용약관, 개인정보 처리방침에 동의합니다</Text>
+                <Text style={styles.info}>
+                  *생망고에서 제공하는 서비스의 이용약관,{"\n"} 개인정보 처리방침에 동의합니다
+                  <Text style={styles.goinfo} onPress={()=>props.navigation.navigate("Terms")}> 약관보기</Text>
+                </Text>
+                
                 <TouchableOpacity style={styles.buttons} onPress={submit}><Text style={styles.join}>동의 및 가입</Text></TouchableOpacity>
             </View>
         </ScrollView>
@@ -93,7 +97,11 @@ const styles = StyleSheet.create({
   info: {
     marginBottom:15,
     letterSpacing:-1,
-    fontSize: 11,
+    fontSize: 13,
+  },
+  goinfo:{
+    fontWeight:"bold",
+    color:"#0366d6"
   },
   container: {
     

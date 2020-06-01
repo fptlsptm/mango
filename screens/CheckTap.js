@@ -5,15 +5,24 @@ import { Image, Platform, Dimensions,StyleSheet, Text,Picker, TouchableOpacity,V
 import { ScrollView } from 'react-native-gesture-handler';
 import { connect,useDispatch, useSelector } from 'react-redux';
 import Axios from "axios";
-import {url,useObj,sOrder,qList,sOrder_name,q36arr,q22arr,q18arr,alerts} from '../common.js';
+import {url,useObj,sOrder,qList,sOrder_name,alerts} from '../common.js';
+
+import {q36arr,q22arr,q18arr} from '../common_st.js';
+
 import SliderInput from '../components/SliderInput';
 import MRadioInput from '../components/MRadioInput';
 import { TabView, SceneMap,TabBar } from 'react-native-tab-view';
 const initialLayout = { width: Dimensions.get('window').width };
 
 const Tab1 = (props) => {
-
-    const tArr = q22arr.map((val,key) =>{
+    const tArr = q22arr.map((val,key) =>{ 
+        if(props.uesData.obj.q22 != undefined && props.infoData != undefined && props.infoData != null){
+            let ckArr = props.uesData.obj.q22;
+            if(props.infoData.q22.indexOf(val) != -1){
+                ckArr.push(val);
+                props.uesData.append("q22",ckArr);    
+            }   
+        }
         return(
             <MRadioInput name="q22" key={key} val={val} uesData={props.uesData}/>
         )   
@@ -29,7 +38,16 @@ const Tab1 = (props) => {
 };
 
 const Tab2 = (props) => {
+    
     const tArr = q18arr.map((val,key) =>{
+
+        if(props.uesData.obj.q18 != undefined && props.infoData != undefined && props.infoData != null){
+            let ckArr = props.uesData.obj.q18;
+            if(props.infoData.q18.indexOf(val) != -1){
+                ckArr.push(val);
+                props.uesData.append("q18",ckArr);    
+            }   
+        }
         return(
             <MRadioInput name="q18" key={key} val={val} uesData={props.uesData}/>
         )   
@@ -49,6 +67,10 @@ const Tab3 = (props) => {
     const sliderInputArr = sOrder.map((val,key) =>{
         const name = val;
         const datas = qList[val];
+        if(props.uesData.obj[val] != undefined && props.infoData != undefined && props.infoData != null){
+            props.uesData.append(val,props.infoData[val]);
+        }
+        //props.uesData.append("q18",ckArr);
         return(
             <SliderInput
                 act={props.uesData.obj[val]}
@@ -71,7 +93,15 @@ const Tab3 = (props) => {
 };
 
 const Tab4 = (props) => {
+    
     const tArr = q36arr.map((val,key) =>{
+        if(props.uesData.obj.q36 != undefined && props.infoData != undefined && props.infoData != null){
+            let ckArr = props.uesData.obj.q36;
+            if(props.infoData.q36.indexOf(val) != -1){
+                ckArr.push(val);
+                props.uesData.append("q36",ckArr);    
+            }   
+        }
         return(
             <MRadioInput name="q36" key={key} val={val} uesData={props.uesData}/>
         )   
@@ -87,6 +117,7 @@ const Tab4 = (props) => {
 
 function CheckTap(props){
     const uesData = useObj({});
+    const [infoData, setInfoData] = React.useState(undefined);
     const [index, setIndex] = React.useState(0);
     const nextEvent=()=>{
         const urls = url+"mem_check/add/"+props.mem_userid;
@@ -97,6 +128,10 @@ function CheckTap(props){
         });
     }
     React.useEffect(()=>{
+        const urls = url+"/mem_check/info/"+props.mem_userid;
+        Axios.get(urls).then(res=>{
+            setInfoData(res.data);
+        });
         uesData.append("q22",[]);  
         uesData.append("q18",[]);  
         uesData.append("q36",[]);  
@@ -121,10 +156,10 @@ function CheckTap(props){
         { key: '4', title: '심리적양상' },
     ]);
     const renderScene = SceneMap({
-        1: ()=><Tab1 uesData={uesData}/>,
-        2: ()=><Tab2 uesData={uesData}/>,
-        3: ()=><Tab3 uesData={uesData}/>,
-        4: ()=><Tab4 uesData={uesData}/>,
+        1: ()=><Tab1 uesData={uesData} infoData={infoData}/>,
+        2: ()=><Tab2 uesData={uesData} infoData={infoData}/>,
+        3: ()=><Tab3 uesData={uesData} infoData={infoData}/>,
+        4: ()=><Tab4 uesData={uesData} infoData={infoData}/>,
     });
     return(
         <View style={styles.container}>

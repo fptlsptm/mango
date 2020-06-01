@@ -2,6 +2,7 @@
 import * as React from 'react';
 import { Image, Platform, StyleSheet, Text,Picker, TouchableOpacity,View,TextInput,Modal,ScrollView} from 'react-native';
 import {url,alerts} from '../common.js';
+import { AntDesign } from '@expo/vector-icons';
 function MPickInput(props){
     const [act ,setAct] = React.useState(props.act);
     const [iosText ,setIosText] = React.useState(props.act);
@@ -26,7 +27,14 @@ function MPickInput(props){
             setStyleName(styles.picKBox);
         }
         setAct(e);
-    }
+        if(e == "없음"){
+            setIconArr(["없음"]);
+            setIosText("없음");
+            props.obj.append(props.name,"없음");
+            setModalVisible(false);
+       
+        }
+    }   
 
     const onTextChangeE = (t) =>{
         setText(t);
@@ -83,6 +91,7 @@ function MPickInput(props){
             setIconArr(arr);
         }
         setdix(dis+val);
+        
     }
     React.useEffect(()=>{
         if(iosText == undefined){
@@ -111,10 +120,13 @@ function MPickInput(props){
 
             <Modal animationType="slide" transparent={false} visible={modalVisible} style={styles.modalIos}>
                 <View style={styles.containerModal}>
+                    <AntDesign style={styles.arrowup} name = "arrowup"size = {24} color = "black"/>
+                    <AntDesign style={styles.arrowdown} name = "arrowdown"size = {24} color = "black"/>
                     <Text style={styles.sub_text}>
                        해당하는 항목을 선택해주세요
                     </Text>
                     <ScrollView style={styles.pickList} contentContainerStyle={styles.contentPickList}>
+                        
                         {pickList}
                     </ScrollView>
 
@@ -148,7 +160,20 @@ if (Platform.OS === 'ios'){
 }
 export default MPickInput;
 const styles = StyleSheet.create({
-
+    arrowup:{
+        position:"absolute",
+        right:5,
+        top:60,
+        fontSize:14,
+        color:"#f59a27"
+    },
+    arrowdown:{
+        position:"absolute",
+        right:5,
+        fontSize:14,
+        top:85,
+        color:"#f59a27"
+    },
     modalIos:{flex:1},
     blockBox:{flexDirection: 'row-reverse',flexWrap:"wrap", justifyContent: 'flex-end',flex:1},
     sub_text:{

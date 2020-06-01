@@ -100,7 +100,7 @@ export default function Main(props){
         <View style={styles.margin_box}/>
         <View style={styles.title_box}>
           <View style={styles.title_box_postion}>
-            <Text style={styles.title_text}>{today} {days}</Text>
+            <Text style={styles.title_text} onPress={()=>props.navigation.navigate("CalenderScreen")}>{today} {days}</Text>
             <View style={styles.main_box}>  
               <Text style={styles.main_text}>{title}{dday}</Text>
               <Text style={styles.main_sub_text}>{msg}</Text>
@@ -141,7 +141,7 @@ export default function Main(props){
           <TouchableOpacity style={styles.boBnt} onPress={()=>props.navigation.navigate("CalenderScreen")}>
             <Image source={require('../assets/images/cal_on.png')} style={styles.boImage} />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.boBnt2} onPress={()=>props.navigation.navigate("Ckeck9",{idx:9})}>
+          <TouchableOpacity style={styles.boBnt2} onPress={()=>props.navigation.navigate("Ckeck2",{idx:2})}>
             <Image source={require('../assets/images/comu_off.png')} style={styles.boImage2} />
           </TouchableOpacity>
           {/* <TouchableOpacity style={styles.boBnt2} onPress={()=>props.navigation.navigate("Ckeck5",{idx:5})}>

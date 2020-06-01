@@ -8,69 +8,24 @@ import {login,update_side} from "../actions";
 import Axios from "axios";
 import { connect,useDispatch, useSelector } from 'react-redux';
 
-export default function Start(props){
+export default function Terms(props){
     
-    const [ch_com, setCh_com] = React.useState("N");
-    const dispatch = useDispatch();
-    const form = new FormData();
-    React.useEffect(() => {
-        const urls = url+"check/get_check/"+props.mem_userid;
-        Axios.get(urls).then(res=>{
-            setCh_com(res.data.ch_com);
-        });    
-    },[]);
-    const nextEvent = () =>{
-        //console.log(ch_com);
-        //props.navigation.navigate("Ckeck1",{idx:1});
-        if(ch_com == "N"){
-            props.navigation.navigate("Ckeck1",{idx:1});
-        }else{
-            alerts("이미 설문에 참여하셨습니다.");
-            props.navigation.navigate("Main");
-        }
-    }
+   
     return(
         <View style={styles.container}>
         <ScrollView contentContainerStyle={styles.contentContainer}>
-            <View style={styles.welcomeContainer}>
-                <View style={styles.main_box}>
-                    <Image source={require('../assets/images/logo.png')} style={styles.welcomeImage} />
-                    <Text style={styles.content_text}>
-                        정확한 생리주기 예측 등 여성을 위한 맞춤형 생리 관리서비스를 제공하기 위해 생망고
-                        최초 가입 시 산부인과 진료명(진단명), 생리 중 증상 및 통증부위, 약 복용 경험등의
-                        사용자 설문을 수행합니다.   
-                    </Text>
-                    <Text style={styles.content_text}>
-                        또한 생리기간 동안 부위 별 통증지수, 심리적 양상 및 일별 진통제 복용 현황
-                        등을 조사하여 동일 연령대와 비교한 나의 통증 및 복용 현황 등 생리관련 전반적인
-                        레포트를 제공합니다  
-                    </Text> 
-                </View>
-                <Text style={styles.subject_text}>설문에 참여하시겠습니까?</Text>
-                <TouchableOpacity style={styles.nextEvent} onPress={nextEvent}>
-                    <Text style={styles.buttons}>참여할게요!</Text>
-                </TouchableOpacity> 
-                <TouchableOpacity style={styles.nextEvent2} onPress={()=>props.navigation.navigate("Main")}>
-                    <Text style={styles.buttons2}>다음에 할게요</Text>
-                </TouchableOpacity>     
-            </View>
+       
+            <Text style={styles.content_text}>
+                정확한 생리주기 예측 등 여성을 위한 맞춤형 생리 관리서비스를 제공하기 위해 생망고
+                최초 가입 시 산부인과 진료명(진단명), 생리 중 증상 및 통증부위, 약 복용 경험등의
+                사용자 설문을 수행합니다.   
+            </Text>
+            
         </ScrollView>
         </View>
     );
 }
-let mapStateToProps = (state) =>{
-    return {
-        mem_userid: state.auth_con.mem_userid,
-        mem_id: state.auth_con.mem_id
-    };
-}  
-Start = connect(mapStateToProps)(Start);
 
-
-let lineHeight = 30;
-if (Platform.OS === 'ios'){
-    lineHeight = 40;
-} 
 
 const styles = StyleSheet.create({
     main_box:{

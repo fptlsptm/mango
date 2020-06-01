@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Image, Platform, StyleSheet,Modal, Text,Picker, TouchableOpacity,View,TextInput} from 'react-native';
+import {url,alerts} from '../common.js';
 function PickInput(props){
     
     const [act ,setAct] = React.useState(props.act);
@@ -30,7 +31,7 @@ function PickInput(props){
     }
     const nextEvent = (e) =>{
         if(e == undefined || e == "선택해 주세요"){
-            alert("항목을 선택해주세요");
+            alerts("항목을 선택해주세요");
         }else{
             onValueChange(e);
             if(props.labels == undefined){

@@ -12,6 +12,7 @@ import Start from '../screens/Start';
 import Push from '../screens/Push';
 import StateBody from '../screens/StateBody';
 import CalenderScreen from '../screens/CalenderScreen';
+import Terms from '../screens/Terms';
 import CheckTap from '../screens/CheckTap';
 
 // const Drow = createDrawerNavigator();
@@ -72,6 +73,7 @@ export default function StackNav({ navigation, route }) {
         options={{
           title: "설문의 목적 및 목표 소개",
           headerTitleAlign:"center",
+          headerLeft:null
          
         }}
       />
@@ -107,7 +109,14 @@ export default function StackNav({ navigation, route }) {
           headerTitleAlign:"center",
         }}
       />
-
+      <Stack.Screen
+        name="Terms"
+        component={Terms}
+        options={{
+          title: "가입약관",
+          headerTitleAlign:"center",
+        }}
+      />
       <Stack.Screen name="Ckeck1" component={Check} options={{headerTitleAlign:"center"}}/>
       <Stack.Screen name="Ckeck2" component={Check} options={{headerTitleAlign:"center"}}/>
       <Stack.Screen name="Ckeck3" component={Check} options={{headerTitleAlign:"center"}}/>

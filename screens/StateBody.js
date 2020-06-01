@@ -3,7 +3,7 @@ import * as React from 'react';
 import { TextInput,Button,Alert,AsyncStorage,Linking,BackHandler} from 'react-native';
 import { Image, Platform, StyleSheet, Text, TouchableOpacity, View ,ProgressBarAndroid} from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import {url,colorArr} from '../common.js';
+import {url,colorArr,alerts} from '../common.js';
 import {login,update_side} from "../actions";
 import IntBar from '../components/IntBar';
 import Axios from "axios";
@@ -32,7 +32,7 @@ export default function StateBody(props){
                 setData(datas);
 
             }else{
-                alert("아직 설문조사를 하지 않았습니다"); 
+                alerts("아직 설문조사를 하지 않았습니다"); 
                 props.navigation.replace("Main");
             }
             //setCh_com(res.data);
@@ -60,15 +60,14 @@ export default function StateBody(props){
                 <View style={stylesBar.bar5}></View>
             </View>
             
-            <Text style={styles.subject_text}>동일 연령대 평균 통증 비교</Text>
-            <Text style={styles.subject_side}>숫자가 클 수록 심함</Text>
+            <Text style={styles.subject_text}>내 또래와 평균 통증 비교</Text>
+            {/* <Text style={styles.subject_side}>숫자가 클 수록 심함</Text> */}
             <View style={styles.infoBox}> 
                <IntBar title={"머리"} val={data.q21}/>
                <IntBar title={"가슴"} val={data.q23}/>
                <IntBar title={"골반"} val={data.q25}/>
                <IntBar title={"허리"} val={data.q27}/>
                <IntBar title={"배"} val={data.q29}/>
-
             </View>
         </ScrollView>
         }

@@ -14,28 +14,26 @@ function CalenderScreen(props){
     React.useEffect(() => {
         const urls = url+"check/cal_data/"+props.mem_userid;
         Axios.get(urls).then(res=>{
-            if(res.data.ch_com == "Y"){
-                const sangArr = res.data.sangArr;
-                const gaArr = res.data.gaArr;
-                const q3arr = res.data.q3arr;
-                const ba = res.data.ba;
-                const list = q3arr.map((val,key) =>{
-                    return(
-                        <CalenderView 
-                            key={key} 
-                            year={val[0]} 
-                            month={val[1]} 
-                            sangArr={sangArr}
-                            gaArr={gaArr}
-                            ba={ba}
-                        />
-                    )
-                });
-                setCal(list);
-            }else{
-                alert("아직 설문조사를 하지 않았습니다"); 
-                props.navigation.replace("Main");
-            }
+            
+            const sangArr = res.data.sangArr;
+            const gaArr = res.data.gaArr;
+            const q3arr = res.data.q3arr;
+            console.log(q3arr);
+            const ba = res.data.ba;
+            const list = q3arr.map((val,key) =>{
+                return(
+                    <CalenderView 
+                        key={key} 
+                        year={val[0]} 
+                        month={val[1]} 
+                        sangArr={sangArr}
+                        gaArr={gaArr}
+                        ba={ba}
+                    />
+                )
+            });
+            setCal(list);
+
         });
     },[]);
     return(

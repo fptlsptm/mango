@@ -44,7 +44,6 @@ export const useObj = (o) =>{
         let ckArr = [];
         let i = 0;
         Object.keys(obj).map(function (key){
-    
             if(obj[key] == "" || obj[key] == undefined){
                 ckArr[i++] = count;
             }
@@ -258,20 +257,19 @@ export const qOrder =[
     ["q33","q34"],
     ["q35","q36"],
 ];
-
+const q9arr = ["만 10세 미만","만 11~12세","만 13~14세","만 15~16세","만 17세 이상"];
 export const sOrder =["q21","q23","q25","q27","q29"];
 export const sOrder_name =["머리통증 정도","가슴통증 정도","배통증 정도","허리통증 정도","골반통증 정도"];
-
 export const qList = {
     q1:{title:"신장을 알려주세요",type:"selectbox",option:toArr(100,200),label:"cm"},
     q2:{title:"체중을 알려주세요",type:"selectbox",option:toArr(30,150),label:"kg"},
     q3:{title:"최근 생리 시작일을 선택하세요",type:"cal",option:lastMonth()},
-    q4:{title:"평균 생리 기간을 알려주세요",type:"selectbox",option:toArr(4,7),label:"일"},
-    q5:{title:"평균 생리 주기를 알려주세요",type:"selectbox",option:toArr(20,40),label:"일"},
+    q4:{title:"평균 생리 기간을 알려주세요",type:"selectbox",option:toArr(1,10),label:"일"},
+    q5:{title:"평균 생리 주기를 알려주세요",type:"selectbox",option:toArr(20,60),label:"일"},
     q6:{title:"어떤 직종에 종사하시나요?",type:"selectbox",option:q6arr },
     q7:{title:"혼인여부",type:"radio",option:["미혼","기혼"]},
     q8:{title:"출산경험",type:"radio",option:["출산경험","출산미경험"]},
-    q9:{title:"초경시작나이",type:"selectbox",option:toArr(1,20),label:"살"},
+    q9:{title:"초경시작나이",type:"selectbox",option:q9arr,label:""},
     q10:{title:"산부인과 진료이력(병명)",type:"mselectbox",option:q10arr},
     q11:{title:"생리통 정도(vas, 1~10)",type:"slider",option:toArr(1,10)},
     q12:{title:"생리통 빈도",type:"selectbox",option:q12arr},

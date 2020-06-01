@@ -1,6 +1,8 @@
 
 import * as React from 'react';
 import { Image, Platform, StyleSheet, Text,Picker, TouchableOpacity,View} from 'react-native';
+import {url,alerts} from '../common.js';
+import { Ionicons } from '@expo/vector-icons';
 function MRadioInput(props){
     const [styleBnt ,setStyleBnt] = React.useState(styles.bntCom);
     const [styleText ,setStyleText] = React.useState(styles.textCom);
@@ -27,18 +29,14 @@ function MRadioInput(props){
     }
     React.useEffect(()=>{
         let ckArr = props.uesData.obj[props.name];
-
         if(Array.isArray(ckArr)){
             const idx = ckArr.indexOf(props.val);
             if(idx == -1){
                 setStyleBnt(styles.bntCom);
                 setStyleText(styles.textCom);
             }else{
-
                 setStyleBnt(styles.bntComCk);
                 setStyleText(styles.textComCk);
-
-            
             }
         }
     },[]);
