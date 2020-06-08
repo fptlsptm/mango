@@ -102,7 +102,7 @@ export default function Login(props){
                 <TouchableOpacity style={styles.buttons} onPress={()=>submits()}>
                   <Text style={styles.login}>로그인</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.buttons_son} onPress={() =>props.navigation.navigate("Join")}>
+                <TouchableOpacity style={styles.buttons_son} onPress={() =>props.navigation.replace("Join")}>
                   <Text style={styles.join}>회원가입</Text>
                 </TouchableOpacity>
                 <View style={{flex: 1, flexDirection: 'row',justifyContent:"flex-end"}}>

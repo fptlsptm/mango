@@ -35,10 +35,7 @@ export default function Join(props){
         form.append("mem_birthday",mem_birthday.value);
         const urls = url+"app_member/member_join";
         Axios.post(urls,form).then(res=>{
-            
             if(res.data.resultItem.result == "Y"){
-              
-              
               dispatch(login(mem_userid.value,res.data.item.mem_id));
               getToken(mem_userid.value,res.data.item.mem_id);
             }
@@ -83,8 +80,9 @@ export default function Join(props){
                   *생망고에서 제공하는 서비스의 이용약관,{"\n"} 개인정보 처리방침에 동의합니다
                   <Text style={styles.goinfo} onPress={()=>props.navigation.navigate("Terms")}> 약관보기</Text>
                 </Text>
-                
+              
                 <TouchableOpacity style={styles.buttons} onPress={submit}><Text style={styles.join}>동의 및 가입</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.buttons1} onPress={()=>props.navigation.replace("Login")}><Text style={styles.join}>뒤로가기</Text></TouchableOpacity>
             </View>
         </ScrollView>
         </View>
@@ -113,6 +111,9 @@ const styles = StyleSheet.create({
   },
   buttons:{
     width:"85%",marginBottom:10,backgroundColor:"#f59a27",color:"#FFF",borderRadius:20
+  },
+  buttons1:{
+    width:"85%",marginBottom:10,backgroundColor:"#ddd",color:"#FFF",borderRadius:20
   },
   join:{
     color:"#FFF",fontSize:15,textAlign:"center",padding:10,

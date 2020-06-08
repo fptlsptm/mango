@@ -18,14 +18,12 @@ export const useObj = (o) =>{
         let ckArr = [];
         let i = 0;
         Object.keys(obj).map(function (key){
-    
             if(obj[key] == "" || obj[key] == undefined){
                 ckArr[i++] = count;
             }
             count++;
             form.append("ck_"+String(key),obj[key]);
         });
-     
         if(ckArr.length != 0 || ql+1 != count){
             if(ckArr[0] == undefined){
                 ckArr[0] = 1;    

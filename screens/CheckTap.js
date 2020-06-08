@@ -68,7 +68,10 @@ const Tab3 = (props) => {
         const name = val;
         const datas = qList[val];
         if(props.uesData.obj[val] != undefined && props.infoData != undefined && props.infoData != null){
-            props.uesData.append(val,props.infoData[val]);
+            console.log(props.infoData[val]);
+            let s = Number(props.infoData[val]);
+            console.log(s);
+            props.uesData.append(val,s);
         }
         //props.uesData.append("q18",ckArr);
         return(

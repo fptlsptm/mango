@@ -9,7 +9,6 @@ import Axios from "axios";
 import { connect,useDispatch, useSelector } from 'react-redux';
 
 export default function Start(props){
-    
     const [ch_com, setCh_com] = React.useState("N");
     const dispatch = useDispatch();
     const form = new FormData();
