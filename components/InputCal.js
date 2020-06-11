@@ -20,7 +20,9 @@ function InputCal(props){
     });
     return (
         <View style={styles.scontainer}>
+            <View style={styles.subject_box}>
             <Text style={styles.subject_text}>{props.title}</Text>
+            </View>
            {rowList}
         </View>
     );
@@ -28,15 +30,22 @@ function InputCal(props){
 export default InputCal;
 const styles = StyleSheet.create({
     scontainer: {
-        width:"100%",
+        flex:1
     },
     subject_text:{
         color:"#000",
         fontSize:16,
         letterSpacing:-1,
-        textAlign:"center",
+        textAlign:"left",
+        width:"85%",
     },
-});
+    subject_box:{
+        flex:1,
+        borderBottomColor:"#f22613",
+        borderBottomWidth:1,
+        paddingBottom:10,
+    }
+}); 
 // 최근생리일
 // 평균생리기간
 // 직종

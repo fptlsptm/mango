@@ -3,17 +3,22 @@ import { StyleSheet, Text, TouchableOpacity,View,Slider} from 'react-native';
 function SliderInput(props){
     const [act ,setAct] = React.useState(props.act);
     React.useEffect(()=>{
-        if(props.act == undefined || props.act == ""){
+        if(props.act == null || props.act == ""){
             props.obj.append(props.name,4);
             setAct(4);
         }else{
             props.obj.append(props.name,props.act);
             setAct(props.act);
         }
+        if(props.act === 0){
+            props.obj.append(props.name,0);
+            setAct(0);
+        }
     },[]);
     const onTextChangeE = (v) =>{
-        props.obj.append(props.name,v);
-        setAct(v);
+        let val = String(v);
+        props.obj.append(props.name,val);
+        setAct(val);
     }
     return( 
         <View style={styles.contain}>

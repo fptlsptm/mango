@@ -48,12 +48,29 @@ export default function Main(props){
       setCh_sang(res.data.ch_sang);
     });
   }
-
   React.useEffect(()=>{
     cal_data();
   },[props.side]);
+
+  const sangck = () =>{
+    const urls = url+"check/get_data/"+props.mem_userid;
+    Axios.get(urls).then(res=>{
+      console.log(res.data);
+      if(res.data.q3 == null){
+        props.navigation.navigate("CheckQ3");
+      }else{
+        if(ch_sang == "N"){
+          startSang();
+        }else{
+          startEnd();
+        }
+      }
+
+    });
+  }
+
   const startSang = () => {
-    Alert.alert("생리를 시작하셨습니까?", "달력에 표시되는 생리일자가 적용됩니다.", [
+    Alert.alert("생리를 시작하셨습니까?", "달력에 표시되는 생리예정일이 적용됩니다.", [
       {
         text: "아니요",
         onPress: () => null,
@@ -64,7 +81,7 @@ export default function Main(props){
     return true;
   }; 
   const startEnd = () => {
-    Alert.alert("생리가 끝나셧나요?", "달력에 표시되는 생리일자가 적용됩니다.", [
+    Alert.alert("생리가 끝나셧나요?", "달력에 표시되는 생리예정일이 적용됩니다.", [
       {
         text: "아니요",
         onPress: () => null,
@@ -74,6 +91,8 @@ export default function Main(props){
     ]);
     return true;
   };  
+
+  
   const sangAxois = async (ch_sang) => {
     const urls = url+"check/update_q3/"+props.mem_userid;
     const form = new FormData();
@@ -114,15 +133,14 @@ export default function Main(props){
             {/* <Image source={require('../assets/images/medi_on.png')} style={styles.welcomeImage} /> */}
             {ch_sang == "N"
                 ? 
-                  <TouchableOpacity style={styles.buttons_box} onPress={()=>startSang()}>
+                  <TouchableOpacity style={styles.buttons_box} onPress={()=>sangck()}>
                     <Text style={styles.buttons}>생리시작</Text>
                   </TouchableOpacity>
                 : 
-                  <TouchableOpacity style={styles.buttons_box} onPress={()=>startEnd()}>
+                  <TouchableOpacity style={styles.buttons_box} onPress={()=>sangck()}>
                     <Text style={styles.buttons}>생리종료</Text>
                   </TouchableOpacity>
             }
-            
           </View>  
         </View>
         <View style={styles.iconBox}>
@@ -141,7 +159,7 @@ export default function Main(props){
           <TouchableOpacity style={styles.boBnt} onPress={()=>props.navigation.navigate("CalenderScreen")}>
             <Image source={require('../assets/images/cal_on.png')} style={styles.boImage} />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.boBnt2} onPress={()=>props.navigation.navigate("Ckeck2",{idx:2})}>
+          <TouchableOpacity style={styles.boBnt2} onPress={()=>props.navigation.navigate("Ckeck16",{idx:16})}>
             <Image source={require('../assets/images/comu_off.png')} style={styles.boImage2} />
           </TouchableOpacity>
           {/* <TouchableOpacity style={styles.boBnt2} onPress={()=>props.navigation.navigate("Ckeck5",{idx:5})}>

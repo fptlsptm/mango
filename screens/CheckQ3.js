@@ -6,43 +6,38 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { connect,useDispatch, useSelector } from 'react-redux';
 import Axios from "axios";
 import {url,useObj,qOrder,alerts} from '../common.js';
+import {update_side} from "../actions";
 import { HeaderTitle } from '@react-navigation/stack';
 import InputCal from '../components/InputCal';
 import CheckInfo from '../components/CheckInfo';
 
-function Check(props){
-    const [idx, setIdx] = React.useState(props.route.params.idx);
+function CheckQ3(props){
+
 
     const uesData = useObj({});
-    props.navigation.setOptions({ headerTitle:idx+" / 17"});
-    const nextEvent=(valArr,keyArr)=>{
+    const dispatch = useDispatch();
+    const  nextEvent= async ()=>{
         const urls = url+"check/update_check/"+props.mem_userid;
-        const ql = qOrder[idx].length;
+        const ql = qOrder[0].length;
         const form = uesData.getData(ql);
-
         if(form.constructor != Array){
-            if(idx == 17){
-                form.append("ck_ch_com","Y");
-            }
-            Axios.post(urls,form).then(res=>{
+            await Axios.post(urls,form).then(res=>{
                 console.log(res.data);
             });
-            if(idx != 17){
-                props.navigation.navigate("Ckeck"+(idx+1),{idx:(idx+1)});
-            }else{
-                props.navigation.replace("Complete");
-            }
+            await dispatch(update_side());
+            props.navigation.replace("Main");
         }else{
-            alerts(form[0]+"번째 항목에 답변 후 다음을 눌러주세요");
+            alerts(form[0]+"번째 항목에 답변을해주세요");
         }
+        //props.navigation.navigate("Ckeck"+(idx+1),{idx:(idx+1)});
     }
     return(
         <View style={styles.container}>
             <ScrollView style={styles.scrolls}>
-                <CheckInfo uesData={uesData} idx={idx}/>
+                <CheckInfo uesData={uesData} idx={0}/>
             </ScrollView> 
             <TouchableOpacity style={styles.nextEvent} onPress={nextEvent}>
-                <Text style={styles.buttons}>다음</Text>
+                <Text style={styles.buttons}>입력완료</Text>
             </TouchableOpacity>     
         </View>
     );
@@ -54,8 +49,8 @@ let mapStateToProps = (state) =>{
     };
   }
   
-Check = connect(mapStateToProps)(Check);
-export default Check;
+CheckQ3 = connect(mapStateToProps)(CheckQ3);
+export default CheckQ3;
 let fontSize = 18;
 let lineHeight = 40;
 

@@ -32,9 +32,19 @@ function MPickInput(props){
             setIosText("없음");
             props.obj.append(props.name,"없음");
             setModalVisible(false);
-       
         }
     }   
+
+    const showModal = () =>{
+
+        if(iosText == "없음"){
+            setAct(undefined);
+            setIconArr([]);
+            setIosText("");
+            props.obj.append(props.name,"");
+        }
+        setModalVisible(true);
+    }
 
     const onTextChangeE = (t) =>{
         setText(t);
@@ -114,7 +124,7 @@ function MPickInput(props){
                 }
             </Text>
             }
-            <TouchableOpacity style={styleName} onPress={()=>setModalVisible(true)}>
+            <TouchableOpacity style={styleName} onPress={()=>showModal()}>
                 <Text style={styles.iosText}>{iosText}</Text>    
             </TouchableOpacity>
 

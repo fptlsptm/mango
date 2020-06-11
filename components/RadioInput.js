@@ -22,8 +22,6 @@ function RadioInput(props){
             >
                 <Text style={styleText}>{val}</Text>
             </TouchableOpacity>
-            
-            
         )
     }); 
     return( 

@@ -18,8 +18,9 @@ function CalenderScreen(props){
             const sangArr = res.data.sangArr;
             const gaArr = res.data.gaArr;
             const q3arr = res.data.q3arr;
-            console.log(q3arr);
+            const q3 = res.data.q3;
             const ba = res.data.ba;
+            const canSangArr = res.data.canSangArr;
             const list = q3arr.map((val,key) =>{
                 return(
                     <CalenderView 
@@ -29,6 +30,9 @@ function CalenderScreen(props){
                         sangArr={sangArr}
                         gaArr={gaArr}
                         ba={ba}
+                        q3={q3}
+                        canSangArr={canSangArr}
+            
                     />
                 )
             });
@@ -43,13 +47,23 @@ function CalenderScreen(props){
              </ScrollView>
              <View style={styles.info_box}>
                 <View style={styles.IcoxBox}>
+                    <Image source={require('../assets/images/q3.png')} style={styles.iconImage}/>
+                    <Text style={styles.iconText}>최근생리일</Text>
+                    <Image source={require('../assets/images/can_sang.png')} style={styles.iconImage}/>
+                    <Text style={styles.iconText}>생리가능주기</Text>
+                </View>
+
+             </View>
+             <View style={styles.info_box}>
+                <View style={styles.IcoxBox}>
                     <Image source={require('../assets/images/sang.png')} style={styles.iconImage}/>
-                    <Text style={styles.iconText}>생리주기</Text>
+                    <Text style={styles.iconText}>생리예측주기</Text>
                     <Image source={require('../assets/images/ba.png')} style={styles.iconImage}/>
                     <Text style={styles.iconText}>배란일</Text>
                     <Image source={require('../assets/images/ga.png')} style={styles.iconImage}/>
                     <Text style={styles.iconText}>가임기</Text>
                 </View>
+            
              </View>
         </View>
     );
@@ -76,6 +90,8 @@ export function CalenderView(props){
                 sangArr={props.sangArr}
                 gaArr={props.gaArr}
                 ba={props.ba}
+                q3={props.q3}
+                canSangArr={props.canSangArr}
             />
         )
     });
@@ -107,6 +123,14 @@ export function CalenderRow(props){
             }
             if(date == props.ba){
                 line = <View style={styles.backs}/>;
+            }
+            if(date == props.q3){
+                console.log("q3", props.q3)
+                line = <View style={styles.q3Label}/>;
+            }
+
+            if(props.canSangArr.indexOf(date) != "-1"){
+                line = <View style={styles.can_sangck}/>;
             }
             if(key == 0){style = styles.calText_0;}
             if(key == 6){style = styles.calText_6;}
@@ -148,28 +172,40 @@ if (Platform.OS === 'ios'){
 } 
 const styles = StyleSheet.create({
     info_box:{
-        width:"100%",
+        flex:1,
         height:60,
         borderTopColor:"#eee",
         borderTopWidth:1,
-        alignItems:"center",
+        alignItems:"flex-start",
         padding:20,
-        
+        width:"100%",
+        paddingRight:40,
     },
     IcoxBox:{
-        width:300,
-        height:20,
-        borderTopColor:"#eee",
-        flexDirection: 'row',
+        flex:1,
+        flexDirection:'row',
         alignItems:"center",
     },
     sangck:{
-        width:"100%",
-        height:4,
-        backgroundColor: '#f59a27',
-        position:"absolute",
+        width:"98%",
+        height:1,
+        position:"relative",
         bottom:0,
+        borderRadius:0.1,
+        borderColor:"#ee7165",
+        borderWidth:1,
+        borderStyle:"dashed",
     },
+    can_sangck:{
+        width:"100%",
+        height:1,
+        position:"relative",
+        bottom:0,
+    
+        borderColor:"#f59a27",
+        borderWidth:1.5,
+    },
+
     gack:{
         width:6,
         height:6,
@@ -183,6 +219,15 @@ const styles = StyleSheet.create({
         width:10,
         height:10,
         backgroundColor: '#f22613',
+        position:"absolute",
+        bottom:0,
+        borderRadius:5,
+        left:"40%",
+    },
+    q3Label:{
+        width:10,
+        height:10,
+        backgroundColor: '#9c27b0',
         position:"absolute",
         bottom:0,
         borderRadius:5,
@@ -213,7 +258,7 @@ const styles = StyleSheet.create({
         width:20,height:20,marginRight:5,
     },
     iconText:{
-        lineHeight:20,marginRight:10,
+        lineHeight:19,marginRight:10,height:20,
     },
     nextEvent:{
         borderRadius:20,width:280,height: 40,backgroundColor:"#f59a27",marginBottom:20
@@ -294,8 +339,8 @@ const styles = StyleSheet.create({
         color:"#668eeb"
     },
     scrolls: {
+        
         width:"100%",
-        height:300,
         backgroundColor: '#fff',
         marginBottom:5,
     },

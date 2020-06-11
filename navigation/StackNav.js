@@ -14,6 +14,7 @@ import StateBody from '../screens/StateBody';
 import CalenderScreen from '../screens/CalenderScreen';
 import Terms from '../screens/Terms';
 import CheckTap from '../screens/CheckTap';
+import CheckQ3 from '../screens/CheckQ3';
 
 // const Drow = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -114,6 +115,14 @@ export default function StackNav({ navigation, route }) {
         component={Terms}
         options={{
           title: "가입약관",
+          headerTitleAlign:"center",
+        }}
+      />
+      <Stack.Screen
+        name="CheckQ3"
+        component={CheckQ3}
+        options={{
+          title: "생리정보입력",
           headerTitleAlign:"center",
         }}
       />
