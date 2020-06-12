@@ -8,17 +8,17 @@ function SliderInput(props){
             setAct(4);
         }else{
             props.obj.append(props.name,props.act);
-            setAct(props.act);
+            parseInt(props.act);
+            setAct(parseInt(props.act));
         }
         if(props.act === 0){
             props.obj.append(props.name,0);
             setAct(0);
         }
     },[]);
-    const onTextChangeE = (v) =>{
-        let val = String(v);
-        props.obj.append(props.name,val);
-        setAct(val);
+    const onTextChangeE = (v) =>{ 
+        props.obj.append(props.name,v);
+        setAct(v);
     }
     return( 
         <View style={styles.contain}>

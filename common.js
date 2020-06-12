@@ -18,7 +18,7 @@ export const useObj = (o) =>{
         let ckArr = [];
         let i = 0;
         Object.keys(obj).map(function (key){
-            if(obj[key] == "" || obj[key] == undefined){
+            if(obj[key] === "" || obj[key] === undefined){
                 ckArr[i++] = count;
             }
             count++;

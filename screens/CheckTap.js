@@ -131,7 +131,7 @@ function CheckTap(props){
         });
     }
     React.useEffect(()=>{
-        const urls = url+"/mem_check/info/"+props.mem_userid;
+        const urls = url+"mem_check/info/"+props.mem_userid;
         Axios.get(urls).then(res=>{
             setInfoData(res.data);
         });

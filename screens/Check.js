@@ -19,7 +19,7 @@ function Check(props){
         const urls = url+"check/update_check/"+props.mem_userid;
         const ql = qOrder[idx].length;
         const form = uesData.getData(ql);
-
+    
         if(form.constructor != Array){
             if(idx == 17){
                 form.append("ck_ch_com","Y");

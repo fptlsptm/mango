@@ -63,7 +63,7 @@ export default function Join(props){
         tForm.append("mem_token",token);  
         tForm.append("mem_platform",Platform.OS);   
         await Axios.post(urls,tForm);
-        props.navigation.replace("Start");
+        props.navigation.replace("Main");
       }else{
         alert("디바이스가 아닙니다");
       }

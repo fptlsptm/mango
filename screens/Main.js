@@ -40,18 +40,17 @@ export default function Main(props){
           setMsg(res.data.msg);
         }
       }
-      if(res.data.ch_com == "Y"){
+      /// 이부분 다시 Y 로 변경하면 체크활성화
+      if(res.data.ch_com == "N"){
         setCkNav("CheckTap");
         setCkNavText("증상 체크하기");
       }
-
       setCh_sang(res.data.ch_sang);
     });
   }
   React.useEffect(()=>{
     cal_data();
   },[props.side]);
-
   const sangck = () =>{
     const urls = url+"check/get_data/"+props.mem_userid;
     Axios.get(urls).then(res=>{
@@ -159,9 +158,9 @@ export default function Main(props){
           <TouchableOpacity style={styles.boBnt} onPress={()=>props.navigation.navigate("CalenderScreen")}>
             <Image source={require('../assets/images/cal_on.png')} style={styles.boImage} />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.boBnt2} onPress={()=>props.navigation.navigate("Ckeck16",{idx:16})}>
+          {/* <TouchableOpacity style={styles.boBnt2} onPress={()=>props.navigation.navigate("Ckeck16",{idx:16})}>
             <Image source={require('../assets/images/comu_off.png')} style={styles.boImage2} />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           {/* <TouchableOpacity style={styles.boBnt2} onPress={()=>props.navigation.navigate("Ckeck5",{idx:5})}>
             <Image source={require('../assets/images/comu_off.png')} style={styles.boImage2} />
           </TouchableOpacity> */}
@@ -330,8 +329,7 @@ const styles = StyleSheet.create({
   },
   boBnt:{
     alignItems:"center",
-    marginLeft:40,
-    marginRight:120,
+    width:"100%",
   },
   boBnt2:{
     alignItems:"center",

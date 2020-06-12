@@ -17,26 +17,45 @@ export default function StateBody(props){
     const form = new FormData();
     const [barColorArr, setBarColorArr] = React.useState(["#fff","#fff","#fff","#fff","#fff"]);
     React.useEffect(() => {
-        const urls = url+"check/get_data/"+props.mem_userid;
+        const urls = url+"mem_check/info/"+props.mem_userid;
         const tempArr = [];
         Axios.get(urls).then(res=>{
-            if(res.data.ch_com == "Y"){
+            console.log(res.data);
+            
+            if(res.data == null){
+                alerts("증상체크를 먼저해주세요.");
+                props.navigation.replace("CheckTap"); 
+            }
+            else{
                 const datas = res.data;
-                setCh_com("Y");
                 tempArr[0] = colorArr[Number(res.data.q21)];
                 tempArr[1] = colorArr[Number(res.data.q23)];
                 tempArr[2] = colorArr[Number(res.data.q25)];
                 tempArr[3] = colorArr[Number(res.data.q27)];
                 tempArr[4] = colorArr[Number(res.data.q29)];
                 setBarColorArr(tempArr);                
+                (tempArr);                
                 setData(datas);
-
-            }else{
-                alerts("아직 설문조사를 하지 않았습니다"); 
-                props.navigation.replace("Main");
+                setCh_com("Y");  
             }
-            //setCh_com(res.data);
-            //tempArr[0] = colorArr[] 
+
+            // 이부분 활성화시 내상태보기에 반영
+            // if(res.data.ch_com == "Y"){
+            //     const datas = res.data;
+            //     setCh_com("Y");
+            //     tempArr[0] = colorArr[Number(res.data.q21)];
+            //     tempArr[1] = colorArr[Number(res.data.q23)];
+            //     tempArr[2] = colorArr[Number(res.data.q25)];
+            //     tempArr[3] = colorArr[Number(res.data.q27)];
+            //     tempArr[4] = colorArr[Number(res.data.q29)];
+            //     setBarColorArr(tempArr);                
+            //     setData(datas);
+
+            // }else{
+            //     alerts("아직 설문조사를 하지 않았습니다"); 
+            //     props.navigation.replace("Main");
+            // }
+
 
         });    
     },[]);
