@@ -21,18 +21,24 @@ export default function StateBody(props){
         const tempArr = [];
         Axios.get(urls).then(res=>{
             console.log(res.data);
-            
+                
             if(res.data == null){
                 alerts("증상체크를 먼저해주세요.");
                 props.navigation.replace("CheckTap"); 
             }
+
+            // 21 허리
+            // 23 가슴
+            // 25 배
+            // 27 허리
+            // 29 골반
             else{
                 const datas = res.data;
                 tempArr[0] = colorArr[Number(res.data.q21)];
                 tempArr[1] = colorArr[Number(res.data.q23)];
-                tempArr[2] = colorArr[Number(res.data.q25)];
-                tempArr[3] = colorArr[Number(res.data.q27)];
-                tempArr[4] = colorArr[Number(res.data.q29)];
+                tempArr[2] = colorArr[Number(res.data.q27)];
+                tempArr[3] = colorArr[Number(res.data.q29)];
+                tempArr[4] = colorArr[Number(res.data.q25)];
                 setBarColorArr(tempArr);                
                 (tempArr);                
                 setData(datas);
@@ -64,7 +70,7 @@ export default function StateBody(props){
         bar2:{height:40,alignItems:"center",width:300,backgroundColor: barColorArr[1],zIndex:10},
         bar3:{height:25,alignItems:"center",width:300,backgroundColor: barColorArr[2],zIndex:10},
         bar4:{height:25,alignItems:"center",width:300,backgroundColor: barColorArr[3],zIndex:10},
-        bar5:{height:50,alignItems:"center",width:300,backgroundColor: barColorArr[4],zIndex:10},
+        bar5:{top:100,height:15,alignItems:"center",width:15,backgroundColor:barColorArr[4],position:"absolute",zIndex:22,borderRadius:50},
     });    
     return(
         <View style={styles.container}>
@@ -84,9 +90,9 @@ export default function StateBody(props){
             <View style={styles.infoBox}> 
                <IntBar title={"머리"} val={data.q21}/>
                <IntBar title={"가슴"} val={data.q23}/>
-               <IntBar title={"골반"} val={data.q25}/>
+               <IntBar title={"배"} val={data.q25}/>
                <IntBar title={"허리"} val={data.q27}/>
-               <IntBar title={"배"} val={data.q29}/>
+               <IntBar title={"골반"} val={data.q29}/>
             </View>
         </ScrollView>
         }

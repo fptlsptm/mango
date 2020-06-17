@@ -32,7 +32,7 @@ export default function Main(props){
         setMsg(res.data.smsg);
       }else{
         setTitle("생리 D");
-        if(res.data.dday == "+0"){
+        if(res.data.dday == "+ 0"){
           setdday("-DAY");
           setMsg("생리 예정일 입니다");
         }else{
