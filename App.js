@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Platform, StatusBar, StyleSheet, Text,View,Vibration} from 'react-native';
+import { Platform, StatusBar, StyleSheet, Text,View,Vibration,SafeAreaView } from 'react-native';
 import { SplashScreen } from 'expo';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
@@ -60,11 +60,11 @@ export default function App(props) {
   } else {
     return (
       <Provider store = {store}>
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
           
-          {Platform.OS === 'ios' && <View style={styles.iosstyles}>
-              <StatusBar backgroundColor="#f5ac4f" barStyle="light-content" translucent={false}/>
-          </View>}
+          {Platform.OS === 'ios' && 
+              <StatusBar backgroundColor="#f5ac4f" translucent={false}/>
+          }
           {Platform.OS === 'android' && 
               <StatusBar backgroundColor="#f5ac4f" barStyle="light-content" translucent={false}/>
           }
@@ -73,7 +73,7 @@ export default function App(props) {
               <Drow.Screen name="Root" component={StackNav}/>     
             </Drow.Navigator>
           </NavigationContainer>
-        </View>
+        </SafeAreaView>
       </Provider>
     );
   }
