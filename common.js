@@ -65,7 +65,7 @@ export const useObj = (o) =>{
 }
 
 
-export const url = "https://softer023.cafe24.com/app/";
+export const url = "http://mango.2bko.com/app/";
 
 export function NowDate(){
     let today = new Date();   
@@ -102,7 +102,6 @@ export function lastMonth(){
 
 }
 
-console.log(lastMonth());
 
 
 export function NowYear(){
@@ -270,7 +269,7 @@ export const qList = {
     q1:{title:"신장을 알려주세요",type:"selectbox",option:toArr(100,200),label:"cm"},
     q2:{title:"체중을 알려주세요",type:"selectbox",option:toArr(30,150),label:"kg"},
     q3:{title:"최근 생리 시작일을 선택하세요",type:"cal",option:lastMonth()},
-    q4:{title:"평균 생리 기간을 알려주세요",type:"selectbox",option:toArr(1,10),label:"일"},
+    q4:{title:"평균 생리 기간을 알려주세요",type:"selectbox",option:toArr(4,10),label:"일"},
     q5:{title:"평균 생리 주기를 알려주세요",type:"selectbox",option:toArr(20,60),label:"일"},
     q6:{title:"어떤 직종에 종사하시나요?",type:"selectbox",option:q6arr },
     q7:{title:"혼인여부",type:"radio",option:["미혼","기혼"]},
